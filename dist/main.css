@@ -1,5 +1,38 @@
-#container {
-  background-color: black;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  background-color: #000000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#threescene {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+#ui {
+  position: absolute;
+  width: inherit;
+  height: inherit;
   color: white;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: auto;
 }
 /*# sourceMappingURL=main.css.map */
