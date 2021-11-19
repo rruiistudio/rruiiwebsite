@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/rruiistudio/rruiiwebsite/issues"
   },
-  "homepage": "https://github.com/rruiistudio/rruiiwebsite#readme",
+  "homepage": "https://rruiistudio.github.io/rruiiwebsite/",
   "dependencies": {
     "gulp": "^3.9.1",
     "lodash": "^4.17.21",
