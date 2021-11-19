@@ -18,7 +18,26 @@ body {
     z-index: 0; 
 }
 
-#ui{    
+#typebox{
+  position: absolute; 
+  display: flex; 
+  flex-direction: row;
+  top: 0; 
+  left: 0; 
+  z-index: 3; 
+  width: 100vw;
+  height: 100vh;
+  color: white; 
+  font-style: italic; 
+  font-family: 'Courier New', Courier, monospace;
+  opacity: 30%;
+  font-size: 12px;
+
+}
+
+#ui{  
+    display: flex;  
+    flex-direction: row;
     position: absolute; 
     width: inherit;
     height: inherit;
@@ -26,6 +45,47 @@ body {
     top: 0; left:0; 
     z-index: 1; 
     text-align: center; 
+    align-items: center;
     justify-content: center;
     margin: auto; 
+    padding-top: 5%;
+
+    #logo {
+      min-width: 50px;
+      width: 5%; 
+      padding-bottom: 10%; 
+    }
+    
+
+    p{
+      font-size: 100; 
+      animation: pulse 1s infinite;
+    }
+}
+
+
+@keyframes pulse {
+	0% {
+		opacity: 100%;
+	}
+
+	70% {
+		opacity: 70%;
+	}
+
+  100% {
+		opacity: 100%;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+  #ui{  
+    display: flex;  
+    flex-direction: column;
+  }
+
+  #typebox{
+    font-size: 9px;
+  }
+   
 }

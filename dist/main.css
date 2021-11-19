@@ -21,7 +21,35 @@ body {
   z-index: 0;
 }
 
+#typebox {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  font-style: italic;
+  font-family: 'Courier New', Courier, monospace;
+  opacity: 30%;
+  font-size: 12px;
+}
+
 #ui {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   position: absolute;
   width: inherit;
   height: inherit;
@@ -30,9 +58,64 @@ body {
   left: 0;
   z-index: 1;
   text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   margin: auto;
+  padding-top: 5%;
+}
+
+#ui #logo {
+  min-width: 50px;
+  width: 5%;
+  padding-bottom: 10%;
+}
+
+#ui p {
+  font-size: 100;
+  -webkit-animation: pulse 1s infinite;
+          animation: pulse 1s infinite;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    opacity: 100%;
+  }
+  70% {
+    opacity: 70%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 100%;
+  }
+  70% {
+    opacity: 70%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #ui {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #typebox {
+    font-size: 9px;
+  }
 }
 /*# sourceMappingURL=main.css.map */

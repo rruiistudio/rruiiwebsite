@@ -1,44 +1,116 @@
-import * as THREE from 'https://unpkg.com/three@0.128.0/build/three.module.js';
+import * as THREE from 'https://unpkg.com/three/build/three.module.js'
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-let div = document.getElementById('threescene')
+let renderer, scene, camera;
 
-// create canvas 
-const renderer = new THREE.WebGLRenderer({antialias: true, canvas: div});
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+let line;
+const MAX_POINTS = 500000;
+let drawCount;
 
-// create geometry
-const geometry = new THREE.SphereGeometry();
-const material = new THREE.MeshBasicMaterial( { color: "#ffb399" } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-
-camera.position.z = 5;
-
-
-// CREATE A TWINGLY LINE 
-const centerX = window.innerWidth / 2
-const centerY = window.innerHeight / 2
-console.log(centerX, centerY)
-
-
-const lp = new THREE.BufferGeometry()
-const positions = new Float32Array( MAX_POINTS * 3);
-lp.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-const drawCount = 2; 
-lp.setDrawRange(0, drawCount); 
-
-
-const line = new THREE.Line( lp, m2 );
-scene.add( line );
-renderer.render( scene, camera );
-
-// UPDATE TWINGLY LINE BASED ON MOUSE POSITION
-
-function animate() {
-	requestAnimationFrame( animate );
-	renderer.render( scene, camera );
-}
+init();
 animate();
+window.addEventListener('resize', onWindowResize, false);
+
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+function init() {
+
+	// renderer
+	renderer = new THREE.WebGLRenderer();
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	document.body.appendChild(renderer.domElement);
+
+	// scene
+	scene = new THREE.Scene();
+
+	// camera
+	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+	camera.position.set(0, 0, 1000);
+
+	// geometry
+	const geometry = new THREE.BufferGeometry();
+
+	// attributes
+	const positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
+	geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+	// drawcalls
+	drawCount = 2; // draw the first 2 points, only
+	geometry.setDrawRange(0, drawCount);
+
+	// material
+	const material = new THREE.LineBasicMaterial({
+		color: "#47524a",
+		linewidth: 3, 
+		linecap: 'round', 
+	});
+
+	// line
+	line = new THREE.Line(geometry, material);
+	scene.add(line);
+
+	// update positions
+	updatePositions();
+
+
+}
+
+function onWindowResize() {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+// update positions
+function updatePositions() {
+
+	const positions = line.geometry.attributes.position.array;
+
+	let x, y, z, index;
+	x = y = z = index = 0;
+
+	for (let i = 0, l = MAX_POINTS; i < l; i++) {
+
+		positions[index++] = x;
+		positions[index++] = y;
+		positions[index++] = z;
+
+		x += (Math.random() - 0.5) * 30;
+		y += (Math.random() - 0.5) * 30;
+		z += (Math.random() - 0.5) * 30;
+
+	}
+
+}
+
+// render
+function render() {
+
+	renderer.render(scene, camera);
+
+}
+
+// animate
+function animate() {
+
+	requestAnimationFrame(animate);
+
+	drawCount = (drawCount + 1) % MAX_POINTS;
+
+	line.geometry.setDrawRange(0, drawCount);
+
+	if (drawCount === 0) {
+
+		// periodically, generate new data
+
+		updatePositions();
+
+		line.geometry.attributes.position.needsUpdate = true; // required after the first render
+
+	}
+
+	render();
+
+}
