@@ -32,7 +32,7 @@
     "three.js": "^0.77.0"
   },
   "devDependencies": {
-    "webpack": "^5.64.1",
-    "webpack-cli": "^4.9.1"
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
   }
 }
